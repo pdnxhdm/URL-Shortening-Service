@@ -19,3 +19,5 @@ class URLStats(BaseModel):
     created_at: datetime
     updated_at: datetime
     access_count: int
+
+    model_config = {"from_attributes": True}
