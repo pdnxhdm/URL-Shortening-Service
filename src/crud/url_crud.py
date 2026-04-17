@@ -1,16 +1,25 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, func
 
 from src.models import URL
+from src.services.shortener import ShortenerService
+
+
+OFFSET = 10**6
 
 
 class URLCRUD:
     @staticmethod
-    def create_url(db: Session, url: str, short_code: str) -> URL:
-        db_url = URL(url=url, short_code=short_code)
+    def create_url(db: Session, url: str) -> URL:
+        next_id = db.scalar(func.next_value("urls_id_seq"))
+        short_code = ShortenerService.encode(next_id + OFFSET)
+
+        db_url = URL(id=next_id, url=url, short_code=short_code)
+
         db.add(db_url)
         db.commit()
         db.refresh(db_url)
+
         return db_url
     
     @staticmethod
@@ -21,15 +30,19 @@ class URLCRUD:
     @staticmethod
     def increment_access_count(db: Session, db_url: URL) -> URL:
         db_url.access_count += 1
+
         db.commit()
         db.refresh(db_url)
+
         return db_url
     
     @staticmethod
     def update_url(db: Session, db_url: URL, new_url: str) -> URL:
         db_url.url = new_url
+
         db.commit()
         db.refresh(db_url)
+
         return db_url
     
     @staticmethod
