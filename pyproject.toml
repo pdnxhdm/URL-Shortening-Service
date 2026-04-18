@@ -1,2 +1,14 @@
+[project]
+name = "url_shortening_service"
+version = "1.0.0"
+dependencies = [
+  "alembic",
+  "fastapi",
+  "psycopg2-binary",
+  "pydantic",
+  "sqlalchemy",
+  "uvicorn"
+]
+
 [tool.mypy]
 plugins = ["pydantic.mypy"]
