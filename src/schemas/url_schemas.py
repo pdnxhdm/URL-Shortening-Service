@@ -5,6 +5,7 @@ from datetime import datetime
 class URLCreate(BaseModel):
     url: HttpUrl = Field(max_length=2048)
 
+
 class URLResponse(BaseModel):
     url: str
     short_code: str
@@ -12,6 +13,7 @@ class URLResponse(BaseModel):
     updated_at: datetime
 
     model_config = {"from_attributes": True}
+
 
 class URLStats(BaseModel):
     url: str

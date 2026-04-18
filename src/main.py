@@ -25,7 +25,7 @@ def retrieve_original_url(short_code: str, db: db_session) -> URLResponse:
 
     if not db_url:
         raise HTTPException(status_code=404, detail="Code not found")
-    
+
     URLCRUD.increment_access_count(db, db_url)
     return db_url
 
@@ -36,7 +36,7 @@ def update_short_url(short_code: str, data: URLCreate, db: db_session) -> URLRes
 
     if not db_url:
         raise HTTPException(status_code=404, detail="Code not found")
-    
+
     updated_url = URLCRUD.update_url(db, db_url, str(data.url))
     return updated_url
 
@@ -47,7 +47,7 @@ def delete_short_url(short_code: str, db: db_session) -> None:
 
     if not db_url:
         raise HTTPException(status_code=404, detail="Code not found")
-    
+
     URLCRUD.delete_url(db, db_url)
 
 
@@ -57,7 +57,7 @@ def get_url_statistics(short_code: str, db: db_session) -> URLStats:
 
     if not db_url:
         raise HTTPException(status_code=404, detail="Code not found")
-    
+
     return db_url
 
 
@@ -67,6 +67,6 @@ def redirect_to_original_url(short_code: str, db: db_session) -> RedirectRespons
 
     if not db_url:
         raise HTTPException(status_code=404, detail="Code not found")
-    
+
     URLCRUD.increment_access_count(db, db_url)
     return RedirectResponse(url=db_url.url, status_code=307)
