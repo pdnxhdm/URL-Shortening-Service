@@ -21,19 +21,31 @@ Async API for a URL shortening service. The API allow users to perform the follo
 
 ## Install
 
+#### Manual Installation
 ```bash
+# Clone the repository
 git clone https://github.com/pdnxhdm/URL-Shortening-Service
 cd URL-Shortening-Service
 
-python -m venv .venv
-sourсe .venv/bin/activate   # Windows: .venv\Scripts\activate
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
+# Install dependencies
+pip install --upgrade pip
 pip install -r requirements.txt
 
+# Run migrations and start service
 alembic upgrade head
 uvicorn src.main:app --reload
 ```
 
+#### Automatic Installation
+If you are on Linux/macOS, you can use the **`install.sh`** script
+```bash
+chmod +x install.sh
+./install.sh
+```
 
 ## Database Schema
 
