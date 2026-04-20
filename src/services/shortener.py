@@ -1,30 +1,14 @@
-from string import digits, ascii_lowercase, ascii_uppercase
+from src.core.config import config
+
+from hashids import Hashids
 
 
-ALPHABET = digits + ascii_lowercase + ascii_uppercase
-BASE = len(ALPHABET)
+MIN_LENGTH = 3
 
 
 class ShortenerService:
+    _hashids = Hashids(salt=config.SALT, min_length=MIN_LENGTH)
+
     @staticmethod
     def encode(num: int) -> str:
-        if num == 0:
-            return ALPHABET[0]
-        
-        arr = []
-
-        while num:
-            num, rem = divmod(num, BASE)
-            arr.append(ALPHABET[rem])
-        
-        arr.reverse()
-        return "".join(arr)
-    
-    @staticmethod
-    def decode(code: str) -> int:
-        num = 0
-
-        for char in code:
-            num = num * BASE + ALPHABET.index(char)
-        
-        return num
+        return ShortenerService._hashids.encode(num)

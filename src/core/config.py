@@ -7,6 +7,8 @@ class Config(BaseSettings):
     DB_USER: str
     DB_PASS: str
     DB_NAME: str
+    
+    SALT: str
 
     OFFSET: int = 10**6
 

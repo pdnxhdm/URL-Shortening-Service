@@ -1,7 +1,7 @@
 # URL Shortening Service FastAPI
 
 Async API for a URL shortening service. The API allow users to perform the following operations:
-- Create a new short code (using Base62 coding)
+- Create a new short code (using Hashids lib)
 - Retrieve an original URL from a short code
 - Redirect to original URL from a short code
 - Update an existing short code
@@ -68,6 +68,8 @@ DB_PORT: int
 DB_USER: str
 DB_PASS: str
 DB_NAME: str
+
+SALT: str
 ```
 
 ## API Endpoints
